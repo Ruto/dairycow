@@ -2,9 +2,11 @@ module V1
 class UsersController < ApplicationController
   def create
     user = User.new(user_params)
+    device = params[:device] if params[:device]
+    token = WebToken.encode(user, device)
 
     if user.save
-      render json: {status: 'User created successfully'}, status: :created
+      render json: { token: token }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
 
     if user && user.authenticate(params[:password])
       if user.confirmed_at?
-        device = params[:device]
+        device = params[:device] if params[:device]
         token = WebToken.encode(user, device)
         render json: {token: token}, status: :ok
       else
