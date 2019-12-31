@@ -18,7 +18,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
 
     if Rails.env.production?
-      origins 'https://dairycow.herokuapp.com'
+      origins 'https://dairycowapi.herokuapp.com'
     else
      origins 'http://localhost:3000'
    end
