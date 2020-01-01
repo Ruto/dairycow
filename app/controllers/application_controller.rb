@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
 
   protected
 # Validates the token and user and sets the @current_user scope
-    def authenticate_request!
+    def authenticate_user!
       if !payload || !WebToken.valid_payload(payload)
         return invalid_authentication
       end

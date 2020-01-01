@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  desc: MyText
+  user_id: 1
+  active: false
+  country: MyString
+  county: MyString
+  geolocation_id: 1
+
+two:
+  name: MyString
+  desc: MyText
+  user_id: 1
+  active: false
+  country: MyString
+  county: MyString
+  geolocation_id: 1

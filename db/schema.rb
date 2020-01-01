@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_01_114330) do
+ActiveRecord::Schema.define(version: 2020_01_01_142208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dairies", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "desc", null: false
+    t.integer "user_id"
+    t.boolean "active", default: true
+    t.string "country"
+    t.string "county"
+    t.integer "geolocation_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["geolocation_id"], name: "index_dairies_on_geolocation_id"
+    t.index ["name"], name: "index_dairies_on_name", unique: true
+    t.index ["user_id"], name: "index_dairies_on_user_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
