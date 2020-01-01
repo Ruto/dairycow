@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_instructions
-    self.confirmation_token = SecureRandom.hex(4)
+    self.confirmation_token = SecureRandom.hex(4).upcase
     self.confirmation_sent_at = Time.now.utc
   end
 
