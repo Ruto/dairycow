@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  phone: MyString
+  email: MyString
+  phone_token: MyString
+  email_token: MyString
+  dairy: one
+  user: one
+  invitation_role: 1
+  confirmed_by_phone: false
+  phone_confirmed_time: 2020-01-03 10:58:50
+  confirmed_by_email: false
+  email_confirmed_time: 2020-01-03 10:58:50
+  admin_confirmed_at: 2020-01-03 10:58:50
+  admin_confirmed: false
+  admin_confirmed_by: 1
+  inviter: 1
+  revoked_invite: false
+
+two:
+  username: MyString
+  phone: MyString
+  email: MyString
+  phone_token: MyString
+  email_token: MyString
+  dairy: two
+  user: two
+  invitation_role: 1
+  confirmed_by_phone: false
+  phone_confirmed_time: 2020-01-03 10:58:50
+  confirmed_by_email: false
+  email_confirmed_time: 2020-01-03 10:58:50
+  admin_confirmed_at: 2020-01-03 10:58:50
+  admin_confirmed: false
+  admin_confirmed_by: 1
+  inviter: 1
+  revoked_invite: false

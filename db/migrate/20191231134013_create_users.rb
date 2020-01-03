@@ -6,8 +6,21 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :email, null: false
       t.string :password_digest, null: false
       t.boolean :active, default: true
+
+      #phone confirmations
+      #t.string   :phone_token
+      #t.boolean  :phone_confirmed
+      #t.datetime :confirmed_at
+      #t.datetime :confirmation_time_at
+
+      #email confirmations
+      #t.string   :email_token
+      #t.boolean  :email_confirmed
+      #t.datetime :confirmed_at
+      #t.datetime :confirmation_time_at
+
       # confirmation_token
-      t.string :confirmation_token
+      t.string   :confirmation_token
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
       t.datetime :confirmation_time_at

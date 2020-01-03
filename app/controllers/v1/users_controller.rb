@@ -1,5 +1,24 @@
 module V1
 class UsersController < ApplicationController
+
+  def index
+    user = User.all
+     if user
+       render json: { user: user }, status: :created
+     else
+       render json: { error: "There are no records of users" }, status: :not_found
+     end
+  end
+
+  def unconfirmed_users
+    user = User.where(:confirmed_at => null)
+     if user
+       render json: { user: user }, status: :created
+     else
+       render json: { error: "There are no records of users" }, status: :not_found
+     end
+  end
+
   def create
     user = User.new(user_params)
     device = params[:device] if params[:device]

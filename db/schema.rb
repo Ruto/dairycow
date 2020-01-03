@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_01_142208) do
+ActiveRecord::Schema.define(version: 2020_01_03_075850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,34 @@ ActiveRecord::Schema.define(version: 2020_01_01_142208) do
     t.index ["geolocation_id"], name: "index_dairies_on_geolocation_id"
     t.index ["name"], name: "index_dairies_on_name", unique: true
     t.index ["user_id"], name: "index_dairies_on_user_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "username"
+    t.string "phone"
+    t.string "email"
+    t.string "phone_token"
+    t.string "email_token"
+    t.bigint "dairy_id"
+    t.bigint "user_id"
+    t.integer "inviter"
+    t.integer "invitation_role"
+    t.boolean "confirmed_by_phone"
+    t.datetime "phone_confirmed_time"
+    t.boolean "confirmed_by_email"
+    t.datetime "email_confirmed_time"
+    t.datetime "admin_confirmed_at"
+    t.boolean "admin_confirmed"
+    t.integer "admin_confirmed_by"
+    t.boolean "revoked_invite", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dairy_id"], name: "index_invitations_on_dairy_id"
+    t.index ["email_token"], name: "index_invitations_on_email_token", unique: true
+    t.index ["invitation_role"], name: "index_invitations_on_invitation_role"
+    t.index ["inviter"], name: "index_invitations_on_inviter"
+    t.index ["phone_token"], name: "index_invitations_on_phone_token", unique: true
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -76,4 +104,6 @@ ActiveRecord::Schema.define(version: 2020_01_01_142208) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "invitations", "dairies"
+  add_foreign_key "invitations", "users"
 end
