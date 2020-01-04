@@ -4,12 +4,17 @@ Rails.application.routes.draw do
   namespace :v1, defaults: { format: :json } do
      resources :invitations do
        collection do
-         get 'user_record'
+         get 'get_user_record'
          get 'unconfirmed_invites'
+         put 'confirm_invite'
+         put 'revoke_invite'
+         put 'admin_confirmation'
        end
+
      end
+     resources :roles
      resources :dairies
-     resources :users, only: :create  do
+     resources :users, only: [:create, :show]  do
         collection do
           get  'unconfirmed_users'
           post 'confirm'

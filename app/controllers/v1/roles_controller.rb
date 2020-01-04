@@ -1,12 +1,13 @@
 module V1
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :update, :destroy]
-  before_action :authenticate_request!, only: [:index, :create, :update, :destroy, :show]
+  before_action :authenticate_user!, only: [:index, :create, :update, :destroy, :show]
 
   # GET /roles
   # GET /roles.json
   def index
     @roles = Role.all
+    render :index, status: :ok, locals: { roles: @roles  }
   end
 
   # GET /roles/1

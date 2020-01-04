@@ -2,6 +2,7 @@ class User < ApplicationRecord
   rolify
   has_secure_password
 
+  has_many :dairies
   #has_many :permissions
   #has_many :roles, through: :permissions
 

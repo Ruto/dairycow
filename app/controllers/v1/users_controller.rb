@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def unconfirmed_users
-    user = User.where(:confirmed_at => null)
+    user = User.where(:confirmed_at => nil)
      if user
        render json: { user: user }, status: :created
      else
@@ -66,5 +66,6 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:username, :phone, :email, :password, :password_confirmation, :device)
   end
+  
 end
 end
