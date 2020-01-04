@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  dob: 2020-01-04
+  breed: MyString
+  female: MyString
+  created_by: 1
+  dairy: one
+  birth_by: 1
+  photo_id: 1
+  active: false
+  deactivation_reason: MyText
+
+two:
+  name: MyString
+  dob: 2020-01-04
+  breed: MyString
+  female: MyString
+  created_by: 1
+  dairy: two
+  birth_by: 1
+  photo_id: 1
+  active: false
+  deactivation_reason: MyText
