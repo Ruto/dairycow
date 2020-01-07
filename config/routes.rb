@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :cows
       resources :roles
       resources :dairies
+      resources :cow_dairies
       resources :invitations do
          collection do
            get 'get_user_record'

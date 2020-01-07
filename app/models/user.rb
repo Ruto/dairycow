@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :dairies
+  has_many :cow_dairies
+  has_many :invitations
   #has_many :permissions
   #has_many :roles, through: :permissions
 

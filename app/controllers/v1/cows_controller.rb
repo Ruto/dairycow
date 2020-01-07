@@ -24,6 +24,8 @@ module V1
       @cow.dairy_id = get_dairy
 
       if @cow.save
+        CowDairy.create(:cow_id => @cow.id, :dairy_id => @cow.dairy_id, :user_id => user_id)
+        # @cow.dairies.create(:user_id => @current_user.id)
         render :show, status: :created, location: v1_cow_url(@cow)
       else
         render json: @cow.errors, status: :unprocessable_entity
