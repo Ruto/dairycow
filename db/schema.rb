@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_04_180829) do
+ActiveRecord::Schema.define(version: 2020_01_08_044641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,20 @@ ActiveRecord::Schema.define(version: 2020_01_04_180829) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
+  create_table "milkings", force: :cascade do |t|
+    t.bigint "cow_id", null: false
+    t.string "type"
+    t.float "quantity"
+    t.datetime "milking_datetime"
+    t.integer "milked_by"
+    t.integer "confirmed_by"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cow_id"], name: "index_milkings_on_cow_id"
+    t.index ["milked_by", "confirmed_by", "user_id"], name: "index_milkings_on_milked_by_and_confirmed_by_and_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -141,4 +155,5 @@ ActiveRecord::Schema.define(version: 2020_01_04_180829) do
   add_foreign_key "cows", "dairies"
   add_foreign_key "invitations", "dairies"
   add_foreign_key "invitations", "users"
+  add_foreign_key "milkings", "cows"
 end

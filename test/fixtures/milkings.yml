@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cow: one
+  type: 
+  milking_time: one
+  quantity: 1.5
+  milked_by: 1
+  confirmed_by: 1
+
+two:
+  cow: two
+  type: 
+  milking_time: two
+  quantity: 1.5
+  milked_by: 1
+  confirmed_by: 1
