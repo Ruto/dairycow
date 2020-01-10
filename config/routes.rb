@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
 
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :v1, defaults: { format: :json } do
       resources :milkings do
         collection do
           put 'confirm_milking'
+        end
+      end
+      resources :milking_times do
+        collection do
+          put 'deactivate'
+        end
+      end  
+
+      resources :cow_shades do
+        collection do
+          put 'deactivate'
         end
       end
       resources :shades

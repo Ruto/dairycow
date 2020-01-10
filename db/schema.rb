@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_070814) do
+ActiveRecord::Schema.define(version: 2020_01_10_091047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 2020_01_10_070814) do
     t.index ["cow_id"], name: "index_cow_dairies_on_cow_id"
     t.index ["dairy_id"], name: "index_cow_dairies_on_dairy_id"
     t.index ["user_id"], name: "index_cow_dairies_on_user_id"
+  end
+
+  create_table "cow_shades", force: :cascade do |t|
+    t.bigint "cow_id", null: false
+    t.bigint "shade_id", null: false
+    t.boolean "active", default: true
+    t.integer "created_by"
+    t.integer "deactivated_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cow_id"], name: "index_cow_shades_on_cow_id"
+    t.index ["created_by", "deactivated_by"], name: "index_cow_shades_on_created_by_and_deactivated_by"
+    t.index ["shade_id"], name: "index_cow_shades_on_shade_id"
   end
 
   create_table "cows", force: :cascade do |t|
@@ -87,6 +100,22 @@ ActiveRecord::Schema.define(version: 2020_01_10_070814) do
     t.index ["inviter"], name: "index_invitations_on_inviter"
     t.index ["phone_token"], name: "index_invitations_on_phone_token", unique: true
     t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
+  create_table "milking_times", force: :cascade do |t|
+    t.string "milking_timeable_id"
+    t.string "milking_timeable_type"
+    t.time "first_milking"
+    t.time "second_milking"
+    t.time "third_milking"
+    t.time "fourth_milking"
+    t.integer "milking_count"
+    t.boolean "active", default: true
+    t.integer "created_by"
+    t.integer "deactivated_by"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_by", "deactivated_by"], name: "index_milking_times_on_created_by_and_deactivated_by"
   end
 
   create_table "milkings", force: :cascade do |t|
@@ -165,6 +194,8 @@ ActiveRecord::Schema.define(version: 2020_01_10_070814) do
   add_foreign_key "cow_dairies", "cows"
   add_foreign_key "cow_dairies", "dairies"
   add_foreign_key "cow_dairies", "users"
+  add_foreign_key "cow_shades", "cows"
+  add_foreign_key "cow_shades", "shades"
   add_foreign_key "cows", "dairies"
   add_foreign_key "invitations", "dairies"
   add_foreign_key "invitations", "users"

@@ -5,6 +5,7 @@ class Dairy < ApplicationRecord
   has_many :shades
   has_many :cow_dairies
   has_many :cows, through: :cow_dairies
+  has_many :milking_times, as: :milking_timeable
 
 
 end

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  milking_timeable_id: MyString
+  milking_timeable_type: MyString
+  first_milking: 2020-01-10 12:10:47
+  second_milking: 2020-01-10 12:10:47
+  third_milking: 2020-01-10 12:10:47
+  fourth_milking: 2020-01-10 12:10:47
+  milking_count: 1
+  active: false
+  created_by: 1
+  deactivated_by: 1
+
+two:
+  milking_timeable_id: MyString
+  milking_timeable_type: MyString
+  first_milking: 2020-01-10 12:10:47
+  second_milking: 2020-01-10 12:10:47
+  third_milking: 2020-01-10 12:10:47
+  fourth_milking: 2020-01-10 12:10:47
+  milking_count: 1
+  active: false
+  created_by: 1
+  deactivated_by: 1

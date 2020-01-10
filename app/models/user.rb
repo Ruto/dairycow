@@ -5,6 +5,9 @@ class User < ApplicationRecord
   has_many :dairies
   has_many :cow_dairies
   has_many :invitations
+  has_many :milking
+  has_many :shades
+  has_many :cow_shades
   #has_many :permissions
   #has_many :roles, through: :permissions
 

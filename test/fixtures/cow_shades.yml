@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cow: one
+  shade: one
+  active: false
+  created_by: 1
+  deactivated_by: 1
+
+two:
+  cow: two
+  shade: two
+  active: false
+  created_by: 1
+  deactivated_by: 1
