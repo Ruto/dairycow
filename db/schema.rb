@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_044641) do
+ActiveRecord::Schema.define(version: 2020_01_10_070814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,19 @@ ActiveRecord::Schema.define(version: 2020_01_08_044641) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "shades", force: :cascade do |t|
+    t.bigint "dairy_id", null: false
+    t.string "name", null: false
+    t.text "desc"
+    t.integer "capacity", null: false
+    t.boolean "active", default: true
+    t.integer "created_by", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["created_by"], name: "index_shades_on_created_by"
+    t.index ["dairy_id"], name: "index_shades_on_dairy_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "phone", null: false
@@ -156,4 +169,5 @@ ActiveRecord::Schema.define(version: 2020_01_08_044641) do
   add_foreign_key "invitations", "dairies"
   add_foreign_key "invitations", "users"
   add_foreign_key "milkings", "cows"
+  add_foreign_key "shades", "dairies"
 end

@@ -21,7 +21,7 @@ class MilkingsController < ApplicationController
   def create
     @milking = Milking.new(milking_params)
     @milking.user_id = @current_user.id
-   # @milking.milking_time_id = milking_schedule_id
+   # @milking.milking_time_id = milk_timeable
     @milking.milking_datetime = Time.now
     @milking.type = milking_period
 
@@ -32,13 +32,13 @@ class MilkingsController < ApplicationController
       render json: @milking.errors, status: :unprocessable_entity
     end
   #else
-    
-  #end  
+
+  #end
   end
 
   def confirm_milking
     @milking.update(confirmed_by: @current_user.id)
-  end  
+  end
   # PATCH/PUT /milkings/1
   # PATCH/PUT /milkings/1.json
   def update
@@ -64,7 +64,7 @@ class MilkingsController < ApplicationController
 
     def milking_period
     milking  = Milking.where(cow_id: params[:cow_id], created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
-        # if Time.now - milking.last.created_at > 4.hours #milking.milking_datetime 
+        # if Time.now - milking.last.created_at > 4.hours #milking.milking_datetime
         milking_count = milking.count
         case milking_count
         when 0
@@ -80,14 +80,14 @@ class MilkingsController < ApplicationController
         else
           "Error has occured"
         end
-   
+
 
     end
 
-    def milking_schedule_id
+    def milk_timeable
       cow = Cow.where(id: params[:cow_id], milkable: true, active: true)
-      
-      if cow.present? 
+
+      if cow.present?
         milking_time = MilkingTime.where(milking_time_id: cow.id, milking_time_type: "Cow", active: true).last
         return milking_time.id
       end
