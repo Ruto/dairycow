@@ -22,9 +22,9 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     device = params[:device] if params[:device]
-    token = WebToken.encode(user, device)
 
     if user.save
+      token = WebToken.encode(user, device)
       render json: { token: token }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
@@ -39,12 +39,21 @@ class UsersController < ApplicationController
         device = params[:device] if params[:device]
         token = WebToken.encode(user, device)
         render json: {token: token}, status: :ok
+      #  render :login, status: :created, locals: { token: jwt }
       else
         render json: {error: 'Email not verified' }, status: :unauthorized
       end
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
+  end
+
+  def logout
+   if params[:token]
+
+   else
+
+   end
   end
 
   def confirm
@@ -64,8 +73,8 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :phone, :email, :password, :password_confirmation, :device)
+    params.permit(:username, :phone, :email, :password, :password_confirmation)
   end
-  
+
 end
 end
