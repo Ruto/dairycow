@@ -33,12 +33,15 @@ class UsersController < ApplicationController
   end
 
   def login
-    user = User.find_by(email: params[:email].to_s.downcase)
+    @user = User.find_by(email: params[:email].to_s.downcase)
 
-    if user && user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password])
       device = params[:device] if params[:device]
-      token = WebToken.encode(user, device)
-      render json: {token: token}, status: :ok
+      @token = WebToken.encode(user, device)
+      #render json: {token: token}, status: :ok
+      #render :login, status: :created, location: v1_user_url(@user, @token)
+      render :login, status: :created, locals: { token: jwt }
+
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
