@@ -26,6 +26,7 @@ class UsersController < ApplicationController
     if user.save
       token = WebToken.encode(user, device)
       render json: { token: token }, status: :created
+      #render json: @user.as_json(only: [:id, :email, :username]), status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
     end
@@ -35,14 +36,9 @@ class UsersController < ApplicationController
     user = User.find_by(email: params[:email].to_s.downcase)
 
     if user && user.authenticate(params[:password])
-      if user.confirmed_at?
-        device = params[:device] if params[:device]
-        token = WebToken.encode(user, device)
-        render json: {token: token}, status: :ok
-      #  render :login, status: :created, locals: { token: jwt }
-      else
-        render json: {error: 'Email not verified' }, status: :unauthorized
-      end
+      device = params[:device] if params[:device]
+      token = WebToken.encode(user, device)
+      render json: {token: token}, status: :ok
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
@@ -73,7 +69,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :phone, :email, :password, :password_confirmation)
+    params.permit(:username, :phone, :email, :password, :password_confirmation, :phone_token, :email_token)
   end
 
 end

@@ -68,7 +68,7 @@ class InvitationsController < ApplicationController
         type = 'email_token'
     end
      @invitation = Invitation.where(type.to_sym => params[type.to_sym], :revoked_invite => false).first
-     binding.pry
+    # binding.pry
      if params[:phone_token].present? and @invitation.present?
         @invitation.update(
             :user_id => @current_user.id,
