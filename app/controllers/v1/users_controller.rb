@@ -37,10 +37,10 @@ class UsersController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       device = params[:device] if params[:device]
-      @token = WebToken.encode(user, device)
+      token = WebToken.encode(@user, device)
       #render json: {token: token}, status: :ok
       #render :login, status: :created, location: v1_user_url(@user, @token)
-      render :login, status: :created, locals: { token: jwt }
+      render :login, status: :created, locals: { token: token }
 
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
