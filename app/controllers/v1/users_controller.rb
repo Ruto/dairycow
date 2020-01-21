@@ -20,12 +20,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
+    @user = User.new(user_params)
     device = params[:device] if params[:device]
 
-    if user.save
+    if @user.save
       token = WebToken.encode(user, device)
-      render json: { token: token }, status: :created
+
+      render :create, status: :created, locals: { token: token }
+      #render json: { token: token }, status: :created
       #render json: @user.as_json(only: [:id, :email, :username]), status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
@@ -70,7 +72,7 @@ class UsersController < ApplicationController
       else
         render json: {status: 'Invalid token'}, status: :not_found
       end
-  end  
+  end
 
   private
 
