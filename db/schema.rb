@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_091047) do
+ActiveRecord::Schema.define(version: 2020_01_11_044641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.string "username"
-    t.string "phone"
-    t.string "email"
+    t.string "username", null: false
+    t.string "phone", null: false
+    t.string "email", null: false
     t.string "phone_token"
     t.string "email_token"
     t.bigint "dairy_id"
@@ -89,14 +89,16 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
     t.boolean "confirmed_by_email"
     t.datetime "email_confirmed_time"
     t.datetime "admin_confirmed_at"
-    t.boolean "admin_confirmed"
+    t.boolean "admin_confirmed", default: false
     t.integer "admin_confirmed_by"
     t.boolean "revoked_invite", default: false
+    t.integer "invite_revoked_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["dairy_id"], name: "index_invitations_on_dairy_id"
     t.index ["email_token"], name: "index_invitations_on_email_token", unique: true
     t.index ["invitation_role"], name: "index_invitations_on_invitation_role"
+    t.index ["invite_revoked_by"], name: "index_invitations_on_invite_revoked_by"
     t.index ["inviter"], name: "index_invitations_on_inviter"
     t.index ["phone_token"], name: "index_invitations_on_phone_token", unique: true
     t.index ["user_id"], name: "index_invitations_on_user_id"
@@ -121,6 +123,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
   create_table "milkings", force: :cascade do |t|
     t.bigint "cow_id", null: false
     t.string "type"
+    t.bigint "milking_time_id"
     t.float "quantity"
     t.datetime "milking_datetime"
     t.integer "milked_by"
@@ -130,6 +133,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cow_id"], name: "index_milkings_on_cow_id"
     t.index ["milked_by", "confirmed_by", "user_id"], name: "index_milkings_on_milked_by_and_confirmed_by_and_user_id"
+    t.index ["milking_time_id"], name: "index_milkings_on_milking_time_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -161,10 +165,13 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.boolean "active", default: true
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
+    t.string "phone_token"
+    t.boolean "phone_confirmed"
+    t.datetime "phone_confirmed_at"
+    t.string "email_token"
+    t.boolean "email_confirmed"
+    t.datetime "emai_confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.datetime "confirmation_time_at"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "reset_password_reset_at"
@@ -175,9 +182,10 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
     t.datetime "unlocked_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email_token"], name: "index_users_on_email_token", unique: true
     t.index ["phone"], name: "index_users_on_phone", unique: true
+    t.index ["phone_token"], name: "index_users_on_phone_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -200,5 +208,6 @@ ActiveRecord::Schema.define(version: 2020_01_10_091047) do
   add_foreign_key "invitations", "dairies"
   add_foreign_key "invitations", "users"
   add_foreign_key "milkings", "cows"
+  add_foreign_key "milkings", "milking_times"
   add_foreign_key "shades", "dairies"
 end

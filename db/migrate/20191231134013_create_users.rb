@@ -8,22 +8,24 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.boolean :active, default: true
 
       #phone confirmations
-      #t.string   :phone_token
-      #t.boolean  :phone_confirmed
-      #t.datetime :confirmed_at
-      #t.datetime :confirmation_time_at
+      t.string   :phone_token
+      t.boolean  :phone_confirmed
+      t.datetime :phone_confirmed_at
 
       #email confirmations
-      #t.string   :email_token
-      #t.boolean  :email_confirmed
-      #t.datetime :confirmed_at
-      #t.datetime :confirmation_time_at
+      t.string   :email_token
+      t.boolean  :email_confirmed
+      t.datetime :emai_confirmed_at
+
+      #token confirmations sent at time
+      t.datetime :confirmation_sent_at
 
       # confirmation_token
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.datetime :confirmation_time_at
+      #t.string   :confirmation_token
+      #t.datetime :confirmed_at
+      #t.datetime :confirmation_sent_at
+      #t.datetime :confirmation_time_at
+
       # Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -42,7 +44,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     add_index :users, :phone,                unique: true
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    add_index :users, :confirmation_token,   unique: true
+    add_index :users, :phone_token,          unique: true
+    add_index :users, :email_token,          unique: true
     add_index :users, :unlock_token,         unique: true
   end
 end

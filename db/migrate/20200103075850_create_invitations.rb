@@ -18,7 +18,7 @@ class CreateInvitations < ActiveRecord::Migration[6.0]
       t.boolean :admin_confirmed, default: false
       t.integer :admin_confirmed_by
       t.boolean :revoked_invite, default: false
-      #t.integer :invite_revoked_by
+      t.integer :invite_revoked_by
 
       t.timestamps
     end
@@ -26,6 +26,6 @@ class CreateInvitations < ActiveRecord::Migration[6.0]
     add_index :invitations, :email_token, unique: true
     add_index :invitations, :inviter
     add_index :invitations, :invitation_role
-    #add_index :invitations, :invite_revoked_by
+    add_index :invitations, :invite_revoked_by
   end
 end
