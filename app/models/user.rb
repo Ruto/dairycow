@@ -25,7 +25,8 @@ class User < ApplicationRecord
   end
 
   def generate_confirmation_instructions
-    self.confirmation_token = SecureRandom.hex(4).upcase
+    self.phone_token = SecureRandom.hex(2).upcase
+    self.email_token = SecureRandom.hex(4).upcase
     self.confirmation_sent_at = Time.now.utc
   end
 
@@ -33,9 +34,17 @@ class User < ApplicationRecord
     (self.confirmation_sent_at + 14.days) > Time.now.utc
   end
 
-  def mark_as_confirmed!
-    self.confirmation_token = nil
-    self.confirmed_at = Time.now.utc
+  def mark_as_email_confirmed!
+    self.email_token = nil
+    self.email_confirmed = true
+    self.email_confirmed_at = Time.now.utc
+    save
+  end
+
+  def mark_as_phone_confirmed!
+    self.phone_token = nil
+    self.phone_confirmed = true
+    self.phone_confirmed_at = Time.now.utc
     save
   end
 

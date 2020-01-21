@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         collection do
           put 'deactivate'
         end
-      end  
+      end
 
       resources :cow_shades do
         collection do
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
      resources :users, only: [:create, :show]  do
         collection do
           get  'unconfirmed_users'
-          post 'confirm'
+          post 'confirm_token'
           post 'login'
         end
       end

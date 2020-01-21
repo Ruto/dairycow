@@ -9,12 +9,12 @@ class CreateUsers < ActiveRecord::Migration[6.0]
 
       #phone confirmations
       t.string   :phone_token
-      t.boolean  :phone_confirmed
+      t.boolean  :phone_confirmed, default: false
       t.datetime :phone_confirmed_at
 
       #email confirmations
       t.string   :email_token
-      t.boolean  :email_confirmed
+      t.boolean  :email_confirmed, default: false
       t.datetime :emai_confirmed_at
 
       #token confirmations sent at time

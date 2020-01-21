@@ -4,6 +4,8 @@ json.user do
     :email,
     :username,
     :phone,
+    :phone_confirmed,
+    :email_confirmed,
     :confirmed_at,
     :confirmation_time_at
   )

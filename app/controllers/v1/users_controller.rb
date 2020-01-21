@@ -1,6 +1,6 @@
 module V1
 class UsersController < ApplicationController
-
+ before_action :authenticate_user!, only: [:confirm]
   def index
     user = User.all
      if user
@@ -55,19 +55,21 @@ class UsersController < ApplicationController
    end
   end
 
-  def confirm
+  def confirm_token
       token = params[:token].to_s
-
-      user = User.find_by(confirmation_token: token)
-
-      if user.present? && user.confirmation_token_valid?
-        user.mark_as_confirmed!
+      if @current_user.phone_token == token  ##  && @current_user.confirmation_token_valid?
+          @current_user.mark_as_phone_confirmed!
         render json: {status: 'User confirmed successfully'}, status: :ok
+      elsif @current_user.email_token == token ##  && @current_user.confirmation_token_valid?
+         @current_user.mark_as_email_confirmed
+        render json: {status: 'User confirmed successfully'}, status: :ok
+      elsif @current_user.phone_token == nil
+        render json: {status: 'Invalid token or has already been used'}, status: :not_found
+      elsif @current_user.email_token == nil
+        render json: {status: 'Invalid token or has already been used'}, status: :not_found
       else
         render json: {status: 'Invalid token'}, status: :not_found
       end
-   end
-
 
   private
 
