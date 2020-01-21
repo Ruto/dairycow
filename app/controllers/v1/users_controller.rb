@@ -70,6 +70,7 @@ class UsersController < ApplicationController
       else
         render json: {status: 'Invalid token'}, status: :not_found
       end
+  end  
 
   private
 

@@ -166,10 +166,10 @@ ActiveRecord::Schema.define(version: 2020_01_11_044641) do
     t.string "password_digest", null: false
     t.boolean "active", default: true
     t.string "phone_token"
-    t.boolean "phone_confirmed"
+    t.boolean "phone_confirmed", default: false
     t.datetime "phone_confirmed_at"
     t.string "email_token"
-    t.boolean "email_confirmed"
+    t.boolean "email_confirmed", default: false
     t.datetime "emai_confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "reset_password_token"
