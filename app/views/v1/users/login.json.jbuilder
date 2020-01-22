@@ -6,7 +6,8 @@ json.user do
     :phone,
     :phone_confirmed,
     :email_confirmed,
-    :confirmation_sent_at
+    :confirmation_sent_at,
+    :user_confirmed
   )
   json.token token
 end

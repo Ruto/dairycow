@@ -15,10 +15,11 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       #email confirmations
       t.string   :email_token
       t.boolean  :email_confirmed, default: false
-      t.datetime :emai_confirmed_at
+      t.datetime :email_confirmed_at
 
       #token confirmations sent at time
       t.datetime :confirmation_sent_at
+      t.boolean  :user_confirmed, default: false
 
       # confirmation_token
       #t.string   :confirmation_token
