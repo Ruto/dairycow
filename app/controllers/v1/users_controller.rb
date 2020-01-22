@@ -1,6 +1,6 @@
 module V1
 class UsersController < ApplicationController
- before_action :authenticate_user!, only: [:confirm]
+ before_action :authenticate_user!, only: [:confirm_token]
   def index
     user = User.all
      if user
