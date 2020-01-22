@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     device = params[:device] if params[:device]
-
+    user = @user
     if @user.save
       token = WebToken.encode(user, device)
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       #render json: { token: token }, status: :created
       #render json: @user.as_json(only: [:id, :email, :username]), status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
   end
 
