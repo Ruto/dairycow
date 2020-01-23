@@ -59,15 +59,17 @@ class UsersController < ApplicationController
 
   def confirm_token
       token = params[:token].to_s
+      @user = @current_user
       if @current_user.phone_token == token  ##  && @current_user.confirmation_token_valid?
-          @current_user.mark_as_phone_confirmed!
+          @user.mark_as_phone_confirmed!
+        #render json: {status: 'User confirmed successfully'}, status: :ok
+        render :confirm_token, status: :created, location: v1_user_url(@user)
+      elsif @user.email_token == token ##  && @current_user.confirmation_token_valid?
+         @user.mark_as_email_confirmed
         render json: {status: 'User confirmed successfully'}, status: :ok
-      elsif @current_user.email_token == token ##  && @current_user.confirmation_token_valid?
-         @current_user.mark_as_email_confirmed
-        render json: {status: 'User confirmed successfully'}, status: :ok
-      elsif @current_user.phone_token == nil
+      elsif @user.phone_token == nil
         render json: {status: 'Invalid token or has already been used'}, status: :not_found
-      elsif @current_user.email_token == nil
+      elsif @user.email_token == nil
         render json: {status: 'Invalid token or has already been used'}, status: :not_found
       else
         render json: {status: 'Invalid token'}, status: :not_found
