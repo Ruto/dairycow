@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     user = @user
     if @user.save
       token = WebToken.encode(user, device)
-
+      UserMailer.with(user: @user).user_confirmation.deliver_later
       render :create, status: :created, locals: { token: token }
       #render json: { token: token }, status: :created
       #render json: @user.as_json(only: [:id, :email, :username]), status: :created

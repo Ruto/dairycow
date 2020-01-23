@@ -38,6 +38,7 @@ class User < ApplicationRecord
     self.email_token = nil
     self.email_confirmed = true
     self.email_confirmed_at = Time.now.utc
+    self.user_confirmed = true
     save
   end
 
@@ -45,6 +46,7 @@ class User < ApplicationRecord
     self.phone_token = nil
     self.phone_confirmed = true
     self.phone_confirmed_at = Time.now.utc
+    self.user_confirmed = true
     save
   end
 
