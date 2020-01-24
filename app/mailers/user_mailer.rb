@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
   #
   def user_confirmation
     #@greeting = "Hi"
-    @user = user
+    user = @user
     mail to: user.email, subject: 'New Dairy Cow Account Confirmation'
   end
 end
